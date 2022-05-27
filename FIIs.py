@@ -8,9 +8,9 @@ from functions.import_content import import_content
 from functions.read_csv import read_csv
 
 month_weight = [
-    0.6,   # 3  meses
-    0.3,  # 6  meses
-    0.1   # 12 meses
+    0.5,   # 3  meses
+    0.35,  # 6  meses
+    0.15   # 12 meses
 ]
 
 max_unit_price = 200
@@ -25,6 +25,7 @@ df = import_content(
 
 df = df.rename(columns={
     "Códigodo fundo": "Código",
+    "DividendYield": "Last DY",
     "PatrimônioLíq.": "PL"
 })
 df.sort_values('Código', inplace=True)
@@ -54,14 +55,18 @@ df.drop(idx, inplace=True)
 
 df['P/VPA'] = df['P/VPA']/100
     
-df['Expectativa'] = month_weight[0] * df['DY (3M)Média'] + month_weight[1] * df['DY (6M)Média'] + month_weight[2] * df['DY (12M)Média']
+df['Expect'] = month_weight[0] * df['DY (3M)Média'] + month_weight[1] * df['DY (6M)Média'] + month_weight[2] * df['DY (12M)Média']
+df['Expect P/VPA'] = df['Expect']/df['P/VPA']
 
 indicators = [
     'Código',
     'Setor',
-    'Expectativa',
-    'P/VPA',
     'Preço Atual',
+    'Last DY',
+    'Dividendo',
+    'Expect',
+    'Expect P/VPA',
+    'P/VPA',
     'VPA',
     'PL',
     'DY (3M)Média',
@@ -76,7 +81,9 @@ df_aux = df[indicators]
 
 indicators = [
     'Setor',
-    'Expectativa',
+    'Last DY',
+    'Expect',
+    'Expect P/VPA',
     'P/VPA',
     'DY (3M)Média',
     'DY (6M)Média',
@@ -86,12 +93,14 @@ indicators = [
     'VacânciaFinanceira',
     'QuantidadeAtivos'
 ]
-media_setor = df_aux[indicators].groupby('Setor').agg(['mean','std'])
 
-df_aux = df_aux.loc[(df_aux['Expectativa'] > min_rentab)]
+df_aux = df_aux.loc[(df_aux['Expect P/VPA'] > min_rentab)]
+df_aux = df_aux.loc[(df_aux['P/VPA'] > 0.7)]
 df_aux = df_aux.loc[(df_aux['Preço Atual'] <= max_unit_price)]
 df_aux = df_aux.loc[(df_aux['Liquidez Diária'] >= min_liquidez)]
+# df_aux = df_aux.loc[(df_aux['QuantidadeAtivos'] != 1)]
 sectors = list(df_aux['Setor'].unique())
+media_setor = df_aux[indicators].groupby('Setor').agg(['mean','std'])
 
 print ('Gerando arquivo...')
 
@@ -104,7 +113,7 @@ if os.path.exists(filename):
 with pd.ExcelWriter(filename) as writer:
     media_setor.to_excel(writer, sheet_name='GENERAL', encoding='utf8')
     for s in sectors:
-        df_setor = df_aux[df_aux['Setor'].isin([s])].sort_values(by=['Expectativa', 'P/VPA'], ascending=False)
+        df_setor = df_aux[df_aux['Setor'].isin([s])].sort_values(by=['Expect P/VPA', 'P/VPA'], ascending=False)
         if df_setor.size > 0:
             df_setor.to_excel(writer, sheet_name=s, encoding='utf8')
 
