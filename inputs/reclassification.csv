@@ -1,5 +1,8 @@
-FII,Classification
+FII,Sector
+AGRX11,Agro
+APTO11,Residencial
 ARCT11,Lajes Corporativas
+BBGO11,Agro
 BBRC11,Ag. Bancárias
 BBPO11,Ag. Bancárias
 BIME11,Papel
@@ -10,31 +13,45 @@ BTAL11,Agro
 BTRA11,Agro
 CACR11,Papel
 CPFF11,Papel
+CPTR11,Agro
 CORM11,Lajes Corporativas
 CXCE11B,Lajes Corporativas
+CXCI11,Papel
 CXRI11,Papel
 DVFF11,Papel
 EVBI11,Lajes Corporativas
 FAED11,Educação
 FATN11,Lajes Corporativas
 FCFL11,Lajes Corporativas
+FGAA11,Agro
 FLMA11,Lajes Corporativas
 GALG11,Logística
 GAME11,Papel
+GCRA11,Agro
 GTLG11,Logística
 HBRH11,Lajes Corporativas
 HCHG11,Papel
 HCTR11,Papel
+HGAG11,Agro
 HGRU11,Lajes Corporativas
+HUSC11,Hospital
+IDFI11,Papel
 IRIM11,Papel
+JGPX11,Agro
 JSRE11,Lajes Corporativas
+KCRE11,Papel
+KNCA11,Agro
+LSAG11,Agro
 MAXR11,Lajes Corporativas
 MFAI11,Papel
 MFII11,Residencial
 MXRF11,Papel
+NCRA11,Agro
 NEWL11,Logística
+OIAG11,Agro
 OULG11,Logística
 PATL11,Logística
+PLCA11,Agro
 PLCR11,Papel
 QAGR11,Agro
 QAMI11,Papel
@@ -44,6 +61,7 @@ RBRP11,Lajes Corporativas
 RBVA11,Ag. Bancárias
 RECT11,Lajes Corporativas
 RELG11,Logística
+RZAG11,Agro
 RZTR11,Agro
 RECX11,Papel
 SARE11,Lajes Corporativas
@@ -52,10 +70,13 @@ TGAR11,Residencial
 TORD11,Papel
 TRXF11,Lajes Corporativas
 URPR11,Papel
+VCRI11,Papel
+VGIA11,Agro
 VGIP11,Papel
 VSLH11,Papel
 VVPR11,Lajes Corporativas
 XPCI11,Papel
 XPIN11,Logística
+XPCA11,Agro
 XPPR11,Lajes Corporativas
 XPSF11,Papel
